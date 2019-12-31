@@ -1,12 +1,14 @@
 exports.handler = function (context, event, callback) {
 
-  let client = context.getTwilioClient();
+  const client = context.getTwilioClient();
 
-  let keywords = new Map([
+  const keywords = new Map([
     ['census', 'https://textit.in/c/tms/receive'],
     ['shelter', 'https://gopidj.com/inbox/route'],
     ['default', 'https://webhooks.twilio.com/studio']
   ]);
+
+  const ttl = 900;
 
   function redirectResponse(location) {
     let response = new Twilio.Response()
@@ -31,7 +33,7 @@ exports.handler = function (context, event, callback) {
         data: {
           appWebhook: appWebhook,
         },
-        ttl: 900
+        ttl: ttl
       })
       .then(mapItem => {
         console.log('Created new map item: ', mapItem);

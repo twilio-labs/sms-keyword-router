@@ -9,6 +9,10 @@ echo "${service_sid}"
 # Create a new sync map:
 echo "Creating a Sync map in Service ${service_sid}."
 map_sid="$(twilio api:sync:v1:services:maps:create --service-sid=${service_sid} -o=json | jq '.[0].sid')"
+
+map_sid="${map_sid%\"}"
+map_sid="${map_sid#\"}"
+
 echo "Created Sync map ${map_sid}"
 
 echo "Writing Sync Service SID and Map SID to .env file."
