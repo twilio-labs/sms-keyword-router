@@ -1,13 +1,13 @@
 # SMS Keyword Router
 
-This SMS Keyword Router allows you to connect your phone number, messaging service, or short code to multiple webhooks. A user can text in with a keyword (e.g. "Support" or "Sales") and have all of their messages forwarded to an webhook that is specific to that keyword.
+This SMS Keyword Router allows you to connect your phone number, messaging service, or short code to multiple webhooks. A user can text in with a keyword (e.g. "Support" or "Sales") and have all of their messages forwarded to a webhook that is specific to that keyword.
 
 Use cases:
 
 * You have a short code that's being used by different departments within your company and each department has a unique app they'd like to connect to.
 * You'd like to connect multiple Twilio Studio Flows to a single phone number so that different teams can edit separate flows simultaneously.
 
-# Pre-requisites
+# Prerequisites
 * Install the Twilio CLI: https://www.twilio.com/docs/twilio-cli/quickstart
 * Install the Twilio Serverless CLI plugin: `twilio plugins:install @twilio-labs/plugin-serverless`
 * Connect the Twilio CLI to your account by running `twilio login`
@@ -36,7 +36,7 @@ Use cases:
     ```
     > Note: `default` is a special keyword that will be used if a user's first text doesn't match any of the specified keywords. You can connect this to an app, or just create a [Studio Flow with an auto-response](https://www.twilio.com/docs/studio/tutorials/how-to-set-up-auto-responder).
 
-- [ ] Set the `ttl` variable on line 11 of `router.js`. This is the the amount of time (in seconds) that a keyword's session will stay active.
+- [ ] Set the `ttl` variable on [line 11](https://github.com/twilio-labs/sms-keyword-router/blob/master/functions/router/router.js#L11) of `router.js`. This is the the amount of time (in seconds) that a keyword's session will stay active.
 
 - [ ] Deploy your project: `twilio serverless:deploy`
 
@@ -67,7 +67,7 @@ twilio api:sync:v1:services:maps:items:remove \
 
 # How it Works
 
-When a user text's in a keyword to your number, a new session is created in Twilio Sync that forwards Twilio's request on to your webhook. For subsequent messages, the router will check to see if there's still a session in Twilio Sync, and continue forwarding messages to the same web app.
+When a user texts in a keyword to your number, a new session is created in Twilio Sync that forwards Twilio's request on to your webhook. For subsequent messages, the router will check to see if there's still a session in Twilio Sync, and continue forwarding messages to the same web app.
 
 Once the `delete-session.js` function is called, or the `ttl` for the session is reached, the router will check if the message is a keyword and again forward messages on the the correct app.
 
