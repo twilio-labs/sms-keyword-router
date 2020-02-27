@@ -20,7 +20,7 @@ exports.handler = function (context, event, callback) {
   }
 
   function getWebhook(keyword) {
-    if (keywords.has(keyword.toLowerCase())) return keywords.get(keyword);
+    if (keywords.has(keyword.toLowerCase())) return keywords.get(keyword.toLowerCase());
     return keywords.get('default');
   }
 
